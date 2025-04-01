@@ -1,13 +1,44 @@
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import { Box } from '@mui/material';
+import {
+    ListItem, ListItemAvatar, Avatar, Typography, Paper, Box,
+    Dialog, Button, DialogActions, DialogTitle, Alert
+} from '@mui/material';
+import Chip from '@mui/joy/Chip';
+import ChipDelete from '@mui/joy/ChipDelete';
 
-const CommentCard = ({ comment }) => {
+import { deleteComment } from './API'
+import { UserContext } from "../contexts/UserContext"
+import { useContext, useState } from 'react';
+
+const CommentCard = ({ comment, comments, setComments }) => {
     const formattedDate = new Date(comment.created_at).toLocaleDateString();
+    const { user } = useContext(UserContext);
 
+    const [open, setOpen] = useState(false);
+
+    const [error, setError] = useState(null);
+    const handleDelete = () => {
+        deleteComment(comment.comment_id).then(() => {
+
+            const filteredComments = comments.filter((com => com.comment_id !== comment.comment_id));
+            setComments(filteredComments)
+
+            handleClose();
+
+        }).catch((err) => {
+
+            setError('Sorry, your comment was not deleted, please try again')
+        })
+    }
+
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     return (
         <Paper
             elevation={1}
@@ -56,6 +87,38 @@ const CommentCard = ({ comment }) => {
             >
                 {comment.votes} VOTES
             </Typography>
+
+            {comment.author === user ? <Chip
+                variant="soft"
+                color="danger"
+                endDecorator={<ChipDelete onDelete={handleClickOpen} />}
+            >
+                Delete comment
+            </Chip> : null}
+            {error ?
+                <Alert variant="outlined" severity="error">
+                    {error}
+                </Alert>
+                : null}
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                disableRestoreFocus
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure you want to delete this comment?"}
+                </DialogTitle>
+
+                <DialogActions>
+                    <Button onClick={handleClose}>No</Button>
+                    <Button onClick={handleDelete} autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
         </Paper>
     )
 }

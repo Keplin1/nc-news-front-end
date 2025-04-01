@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from 'react'
 import { getSingleArticle, getCommentByArticleId, postNewComment } from "./API";
 
-
 import Typography from '@mui/joy/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -58,9 +57,6 @@ const ArticlePage = () => {
 
     const handleCommentPost = () => {
         if (!commentBody.length === 0) {
-
-
-
             postNewComment(article_id, user, commentBody).then((comment) => {
                 setComments([comment, ...comments])
                 setCommentBody('')
@@ -84,6 +80,7 @@ const ArticlePage = () => {
                 <Divider sx={{ mb: 3 }} />
 
                 <Textarea
+                    name="comment-box"
                     color="neutral"
                     minRows={2}
                     size="lg"
@@ -101,7 +98,7 @@ const ArticlePage = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {comments.map((comment) => (
-                        <CommentCard key={comment.comment_id} comment={comment} />
+                        <CommentCard key={comment.comment_id} comment={comment} comments={comments} setComments={setComments} />
                     ))}
                 </Box>
 
