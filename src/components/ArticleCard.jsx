@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 
 const ArticleCard = ({ article }) => {
 
-
+    const formattedDate = new Date(article.created_at).toLocaleDateString();
     return (
 
         <Card sx={{ maxWidth: 300, minHeight: 350, maxHeight: 350 }}>
-            <p className='date'>Posted: {article.created_at}</p>
+            <p className='date'> {formattedDate}</p>
             <Link to={`/articles/${article.article_id}`}>
                 <CardMedia
 

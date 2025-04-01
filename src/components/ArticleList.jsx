@@ -6,6 +6,7 @@ import Grid from '@mui/joy/Grid';
 
 const ArticleList = ({ articleList, setArticleList }) => {
 
+
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
