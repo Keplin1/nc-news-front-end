@@ -6,9 +6,15 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
+import VoteCounter from "./VoteCounter";
+import { useState } from 'react'
+import Alert from '@mui/material/Alert';
 
 const SingleArticleCard = ({ article }) => {
     const formattedDate = new Date(article.created_at).toLocaleDateString();
+    const [currentVotesCount, setVotesCount] = useState(article.votes);
+
+    const [error, setError] = useState(null);
     return (
         <section>
             <Container maxWidth="lg" sx={{ my: 4 }}>
@@ -46,9 +52,16 @@ const SingleArticleCard = ({ article }) => {
                     <Typography level="h1" sx={{ mb: 2 }}>{article.title}</Typography>
                     <Typography sx={{ mb: 3 }}>{article.body}</Typography>
                     <CardActions>
-                        <Button size="small">{article.votes} Votes</Button>
+
+                        <VoteCounter setError={setError} articleId={article.article_id} currentVotesCount={currentVotesCount} setVotesCount={setVotesCount} />
                         <Button size="small">{article.comment_count} Comments</Button>
+                        {error ?
+                            <Alert variant="outlined" severity="error">
+                                {error}
+                            </Alert>
+                            : null}
                     </CardActions>
+
                 </Paper>
             </Container>
         </section >
