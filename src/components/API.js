@@ -1,3 +1,4 @@
+import { DataArray } from "@mui/icons-material";
 import axios from "axios";
 
 
@@ -31,5 +32,16 @@ export const getCommentByArticleId = (article_id) => {
 
         return data.comments
     })
+
+}
+
+const patchVotes = { inc_votes: 1 }
+export const addArticleVote = (article_id) => {
+    return newsApi.patch(`/articles/${article_id}`, { inc_votes: 1 })
+
+        .then(({ data }) => {
+
+            return data.articles.votes
+        })
 
 }

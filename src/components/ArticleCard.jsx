@@ -36,8 +36,8 @@ const ArticleCard = ({ article }) => {
                 <Button size="small">{article.votes} Votes</Button>
                 <Button size="small"> {article.comment_count} Comments</Button>
             </CardActions>
-        </Card>
 
+        </Card>
 
     )
 
