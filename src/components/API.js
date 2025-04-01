@@ -35,7 +35,7 @@ export const getCommentByArticleId = (article_id) => {
 
 }
 
-const patchVotes = { inc_votes: 1 }
+
 export const addArticleVote = (article_id) => {
     return newsApi.patch(`/articles/${article_id}`, { inc_votes: 1 })
 
