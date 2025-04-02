@@ -9,7 +9,7 @@ import { deleteComment } from './API'
 import { UserContext } from "../contexts/UserContext"
 import { useContext, useState } from 'react';
 
-const CommentCard = ({ comment, comments, setComments }) => {
+const CommentCard = ({ comment, comments, setComments, setCommentDelete }) => {
     const formattedDate = new Date(comment.created_at).toLocaleDateString();
     const { user } = useContext(UserContext);
 
@@ -19,8 +19,10 @@ const CommentCard = ({ comment, comments, setComments }) => {
     const handleDelete = () => {
         deleteComment(comment.comment_id).then(() => {
 
+            setCommentDelete(true);
             const filteredComments = comments.filter((com => com.comment_id !== comment.comment_id));
-            setComments(filteredComments)
+            setComments(filteredComments);
+
 
             handleClose();
 
@@ -118,6 +120,7 @@ const CommentCard = ({ comment, comments, setComments }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
 
         </Paper>
     )

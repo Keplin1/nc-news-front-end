@@ -8,10 +8,11 @@ import Divider from '@mui/material/Divider';
 import CommentCard from "./CommentCard";
 import SingleArticleCard from "./SingleArticleCard";
 import { Textarea } from "@mui/joy";
-import Button from "@mui/material/Button";
+
 
 import { UserContext } from "../contexts/UserContext"
-
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 
 const ArticlePage = () => {
     const { article_id } = useParams();
@@ -22,6 +23,7 @@ const ArticlePage = () => {
 
     const [isLoading, setIsLoading] = useState(true);
 
+    const [commentDelete, setCommentDelete] = useState(false)
 
 
     useEffect(() => {
@@ -55,8 +57,16 @@ const ArticlePage = () => {
     }
 
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setCommentDelete(false)
+    }
+
     const handleCommentPost = () => {
-        if (!commentBody.length === 0) {
+        if (commentBody.length !== 0) {
             postNewComment(article_id, user, commentBody).then((comment) => {
                 setComments([comment, ...comments])
                 setCommentBody('')
@@ -98,10 +108,17 @@ const ArticlePage = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {comments.map((comment) => (
-                        <CommentCard key={comment.comment_id} comment={comment} comments={comments} setComments={setComments} />
+                        <CommentCard key={comment.comment_id} setCommentDelete={setCommentDelete} comment={comment} comments={comments} setComments={setComments} />
                     ))}
                 </Box>
-
+                <Box>
+                    <Snackbar
+                        open={commentDelete}
+                        autoHideDuration={5000}
+                        onClose={handleClose}
+                        message="This Snackbar will be dismissed in 5 seconds."
+                    />
+                </Box>
             </Box>
         </section >
     )
