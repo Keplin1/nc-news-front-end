@@ -2,17 +2,17 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from 'react'
 import { getSingleArticle, getCommentByArticleId, postNewComment } from "./API";
 
-
 import Typography from '@mui/joy/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import CommentCard from "./CommentCard";
 import SingleArticleCard from "./SingleArticleCard";
 import { Textarea } from "@mui/joy";
-import Button from "@mui/material/Button";
+
 
 import { UserContext } from "../contexts/UserContext"
-
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
 
 const ArticlePage = () => {
     const { article_id } = useParams();
@@ -23,6 +23,7 @@ const ArticlePage = () => {
 
     const [isLoading, setIsLoading] = useState(true);
 
+    const [commentDelete, setCommentDelete] = useState(false)
 
 
     useEffect(() => {
@@ -56,11 +57,16 @@ const ArticlePage = () => {
     }
 
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setCommentDelete(false)
+    }
+
     const handleCommentPost = () => {
-        if (!commentBody.length === 0) {
-
-
-
+        if (commentBody.length !== 0) {
             postNewComment(article_id, user, commentBody).then((comment) => {
                 setComments([comment, ...comments])
                 setCommentBody('')
@@ -68,10 +74,7 @@ const ArticlePage = () => {
 
                 console.log(err)
             })
-
         }
-
-
     }
 
     return (
@@ -84,6 +87,7 @@ const ArticlePage = () => {
                 <Divider sx={{ mb: 3 }} />
 
                 <Textarea
+                    name="comment-box"
                     color="neutral"
                     minRows={2}
                     size="lg"
@@ -101,10 +105,17 @@ const ArticlePage = () => {
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {comments.map((comment) => (
-                        <CommentCard key={comment.comment_id} comment={comment} />
+                        <CommentCard key={comment.comment_id} setCommentDelete={setCommentDelete} comment={comment} comments={comments} setComments={setComments} />
                     ))}
                 </Box>
-
+                <Box>
+                    <Snackbar
+                        open={commentDelete}
+                        autoHideDuration={5000}
+                        onClose={handleClose}
+                        message="Your comment was deleted!"
+                    />
+                </Box>
             </Box>
         </section >
     )
