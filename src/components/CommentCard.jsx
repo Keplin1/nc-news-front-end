@@ -83,20 +83,28 @@ const CommentCard = ({ comment, comments, setComments, setCommentDelete }) => {
                 </Box>
             </ListItem>
 
-            <Typography
-                color='primary'
-                sx={{ fontWeight: 'md', mt: 1 }}
-            >
-                {comment.votes} VOTES
-            </Typography>
-
-            {comment.author === user ? <Chip
-                variant="soft"
-                color="danger"
-                endDecorator={<ChipDelete onDelete={handleClickOpen} />}
-            >
-                Delete comment
-            </Chip> : null}
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: 1,
+                width: '100%'
+            }}>
+                <Typography
+                    color='primary'
+                    sx={{ fontWeight: 'md', mt: 1 }}
+                >
+                    {comment.votes} VOTES
+                </Typography>
+                {comment.author === user ? <Chip
+                    variant="soft"
+                    color="danger"
+                    sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                    endDecorator={<ChipDelete onDelete={handleClickOpen} />}
+                >
+                    Delete comment
+                </Chip> : null}
+            </Box>
             {error ?
                 <Alert variant="outlined" severity="error">
                     {error}
@@ -120,8 +128,6 @@ const CommentCard = ({ comment, comments, setComments, setCommentDelete }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-
-
         </Paper>
     )
 }

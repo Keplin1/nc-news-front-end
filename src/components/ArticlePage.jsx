@@ -74,10 +74,7 @@ const ArticlePage = () => {
 
                 console.log(err)
             })
-
         }
-
-
     }
 
     return (
@@ -116,7 +113,7 @@ const ArticlePage = () => {
                         open={commentDelete}
                         autoHideDuration={5000}
                         onClose={handleClose}
-                        message="This Snackbar will be dismissed in 5 seconds."
+                        message="Your comment was deleted!"
                     />
                 </Box>
             </Box>
