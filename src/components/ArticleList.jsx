@@ -1,23 +1,14 @@
-import { getAllArticles } from "./API";
+
 import { useState, useEffect } from 'react'
 import ArticleCard from "./ArticleCard";
 import Grid from '@mui/joy/Grid';
 
 
-const ArticleList = ({ articleList, setArticleList }) => {
+const ArticleList = ({ articleList, isLoading }) => {
 
 
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        getAllArticles().then((articles) => {
 
-            setArticleList(articles);
-
-            setIsLoading(false)
-        })
-
-    }, [])
 
     if (isLoading) {
         return (
