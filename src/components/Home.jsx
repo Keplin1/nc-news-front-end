@@ -1,14 +1,24 @@
 import ArticleList from "./ArticleList"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getAllArticles } from "./API";
 
 const Home = () => {
 
     const [articleList, setArticleList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        getAllArticles().then((articles) => {
+
+            setArticleList(articles);
+
+            setIsLoading(false)
+        })
+
+    }, [])
     return (
         <main>
-            <p>Home</p>
-            <ArticleList articleList={articleList} setArticleList={setArticleList} />
-
+            <ArticleList articleList={articleList} isLoading={isLoading} />
         </main>
     )
 

@@ -58,3 +58,19 @@ export const deleteComment = (comment_id) => {
         return response.data
     })
 }
+
+export const getAllTopics = () => {
+    return newsApi.get('/topics').then((response) => {
+
+        return response.data.topics
+    })
+
+}
+
+export const getArticlesByTopic = (topic_name) => {
+    return newsApi.get(`articles?topic=${topic_name}`).then((response) => {
+        return response.data.articles
+
+    })
+
+}
