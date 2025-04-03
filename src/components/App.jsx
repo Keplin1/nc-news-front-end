@@ -7,6 +7,7 @@ import ArticlePage from './ArticlePage'
 import { UserProvider } from "../contexts/UserContext";
 import { Container } from "@mui/material";
 import TopicPage from './TopicPage'
+import ErrorPage from "./ErrorPage";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/articles/:article_id" element={<ArticlePage />} />
           <Route path='/topics/:topic_name' element={<TopicPage />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </UserProvider >
     </Container>

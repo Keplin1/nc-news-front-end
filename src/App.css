@@ -6,3 +6,20 @@
 .App {
   font-family: sans-serif;
 }
+
+.error-msg {
+
+  padding: 20px, 30px, 20px, 20px ;
+  background-color: #fce4e4;
+  border: 1px solid #fcc2c3;
+
+  padding: 20px 30px;
+  margin-top: 20px;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content; 
+    max-width: 600px; 
+    text-align: center;
+}

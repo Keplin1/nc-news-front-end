@@ -1,10 +1,10 @@
 
-import { useState, useEffect } from 'react'
 import ArticleCard from "./ArticleCard";
 import Grid from '@mui/joy/Grid';
+import ErrorMessage from "./ErrorMessage";
 
 
-const ArticleList = ({ articleList, isLoading }) => {
+const ArticleList = ({ error, articleList, isLoading }) => {
 
 
     if (isLoading) {
@@ -13,6 +13,13 @@ const ArticleList = ({ articleList, isLoading }) => {
                 <p>Loading... please wait </p>
             </section>
         )
+    }
+    if (error) {
+
+        return (
+            <ErrorMessage error={error} />
+        )
+
     }
     return (
         <Grid container spacing={5} sx={{ mt: 2 }}>
