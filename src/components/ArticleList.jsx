@@ -7,9 +7,6 @@ import Grid from '@mui/joy/Grid';
 const ArticleList = ({ articleList, isLoading }) => {
 
 
-
-
-
     if (isLoading) {
         return (
             <section className="loading">
