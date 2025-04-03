@@ -13,6 +13,7 @@ import { Textarea } from "@mui/joy";
 import { UserContext } from "../contexts/UserContext"
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
+import ErrorMessage from "./ErrorMessage";
 
 const ArticlePage = () => {
     const { article_id } = useParams();
@@ -22,7 +23,7 @@ const ArticlePage = () => {
     const [commentBody, setCommentBody] = useState('')
 
     const [isLoading, setIsLoading] = useState(true);
-
+    const [error, setError] = useState(null);
     const [commentDelete, setCommentDelete] = useState(false)
 
 
@@ -42,6 +43,9 @@ const ArticlePage = () => {
                     })
 
             }).catch((err) => {
+                setIsLoading(false);
+                setError(err);
+
 
                 console.log(err)
             })
@@ -54,6 +58,14 @@ const ArticlePage = () => {
                 <p>Loading... please wait </p>
             </section>
         )
+    }
+
+    if (error) {
+
+        return (
+            <ErrorMessage error={error} />
+        )
+
     }
 
 

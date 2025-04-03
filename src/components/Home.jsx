@@ -14,6 +14,7 @@ const Home = () => {
     const newParams = new URLSearchParams(searchParams);
     const sortByQuery = searchParams.get("sort_by");
     const orderQuery = searchParams.get("order");
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         getAllArticles(sortByQuery, orderQuery).then((articles) => {
@@ -21,13 +22,17 @@ const Home = () => {
             setArticleList(articles);
 
             setIsLoading(false)
+        }).catch((err) => {
+            setIsLoading(false)
+            setError(err)
+            console.log(err)
         })
 
     }, [sortByQuery, orderQuery])
     return (
         <main>
             <SortArticles newParams={newParams} setSearchParams={setSearchParams} />
-            <ArticleList articleList={articleList} isLoading={isLoading} />
+            <ArticleList error={error} articleList={articleList} isLoading={isLoading} />
 
         </main>
     )
