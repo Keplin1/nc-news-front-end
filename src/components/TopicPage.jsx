@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
-import { getArticlesByTopic } from './API'
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import { Typography, Card } from '@mui/joy';
 import ArticleList from "./ArticleList";
-import Typography from '@mui/joy/Typography';
-import Card from '@mui/joy/Card';
+
+import { getArticlesByTopic } from './API'
 
 const TopicPage = () => {
     const { topic_name } = useParams();

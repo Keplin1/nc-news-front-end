@@ -9,15 +9,7 @@ const newsApi = axios.create({
 
 });
 
-export const getAllArticles = (itemQuery) => {
 
-    return newsApi.get('/articles').then(({ data }) => {
-
-        return data.articles
-    })
-
-
-}
 export const getSingleArticle = (article_id) => {
 
     return newsApi.get(`/articles/${article_id}`).then(({ data }) => {
@@ -70,7 +62,11 @@ export const getAllTopics = () => {
 export const getArticlesByTopic = (topic_name) => {
     return newsApi.get(`articles?topic=${topic_name}`).then((response) => {
         return response.data.articles
-
     })
+}
 
+export const getAllArticles = (sortParam, orderParam) => {
+    return newsApi.get('/articles', { params: { sort_by: sortParam, order: orderParam } }).then(({ data }) => {
+        return data.articles
+    })
 }
