@@ -9,7 +9,7 @@ const VoteCounter = ({ currentVotesCount, setVotesCount, articleId, setError }) 
 
         setVotesCount((currentVotesCount) => currentVotesCount + 1);
         setError(null);
-        addArticleVote(articleId).catch((err) => {
+        addArticleVote(articleId).catch(() => {
             setVotesCount((currentVotesCount) => currentVotesCount - 1);
             setError("Your vote was not successful. Please try again!");
         });

@@ -26,7 +26,6 @@ const ArticlePage = () => {
     const [error, setError] = useState(null);
     const [commentDelete, setCommentDelete] = useState(false)
 
-
     useEffect(() => {
         getSingleArticle(article_id)
             .then((article) => {

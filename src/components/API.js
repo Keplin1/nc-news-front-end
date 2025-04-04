@@ -1,12 +1,8 @@
-import { DataArray } from "@mui/icons-material";
+
 import axios from "axios";
 
-
-
 const newsApi = axios.create({
-
     baseURL: 'https://nc-news-project-50ht.onrender.com/api'
-
 });
 
 
@@ -46,9 +42,7 @@ export const postNewComment = (article_id, username, body) => {
 }
 
 export const deleteComment = (comment_id) => {
-    return newsApi.delete(`/comments/${comment_id}`).then((response) => {
-        return response.data
-    })
+    return newsApi.delete(`/comments/${comment_id}`);
 }
 
 export const getAllTopics = () => {

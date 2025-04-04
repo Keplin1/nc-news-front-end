@@ -26,7 +26,7 @@ const CommentCard = ({ comment, comments, setComments, setCommentDelete }) => {
 
             handleClose();
 
-        }).catch((err) => {
+        }).catch(() => {
 
             setError('Sorry, your comment was not deleted, please try again')
         })
